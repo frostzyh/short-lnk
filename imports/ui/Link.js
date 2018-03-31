@@ -30,11 +30,9 @@ export default class Link extends React.Component{
   handleSubmit() {
     const url = this.state.url;
     if (url) {
-      Links.insert({
-        url,
-        userId: Meteor.userId()
-      });
-      console.log("Link added:", url);
+      //Links.insert({ url, userId: Meteor.userId() });
+      Meteor.call('links.insert', url);
+      //console.log("Link added:", url);
       this.setState({url:''});
     }
   }

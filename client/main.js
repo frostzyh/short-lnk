@@ -12,8 +12,11 @@ Tracker.autorun(() => {
 });
 
 Meteor.startup(() => {
-  Meteor.call('greetUser', (error, result) => {
-    console.log('greetUser args', error, result);
-  });
+  // Meteor.call('greetUser', (error, result) => {
+  //   console.log('greetUser args', error, result);
+  // });
+
+  // Triger error to test
+  //Meteor.call('links.insert', 'fsdafsdaf');
   render(routes, document.getElementById('render-target'));
 });

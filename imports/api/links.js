@@ -17,14 +17,24 @@ if (Meteor.isServer){
 
 
 Meteor.methods({
-  greetUser(name) {
-    // name = 'Strange' sets a default value to the argument
-    console.log('greetUser is running');
-
-    if (!name){
-      throw new Meteor.Error('invalid-arguments', 'Name is required!');
+  // greetUser(name) {
+  //   // name = 'Strange' sets a default value to the argument
+  //   console.log('greetUser is running');
+  //
+  //   if (!name){
+  //     throw new Meteor.Error('invalid-arguments', 'Name is required!');
+  //   }
+  //   //return 'Hello ' + name + '!';
+  //   return 'Hello ${name}!';
+  // }
+  'links.insert'(url){
+    if(!this.userId) {
+      throw new Meteor.Error('not-authorized');
     }
-    //return 'Hello ' + name + '!';
-    return 'Hello ${name}!';
+
+    Links.insert({
+      url,
+      userId: this.userId
+    });
   }
 });
