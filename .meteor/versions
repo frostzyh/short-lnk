@@ -1,7 +1,6 @@
 accounts-base@1.4.2
 accounts-password@1.5.1
 allow-deny@1.1.0
-autopublish@1.0.7
 autoupdate@1.4.0
 babel-compiler@7.0.5
 babel-runtime@1.2.2
@@ -65,6 +64,7 @@ reactive-var@1.0.11
 reload@1.2.0
 retry@1.1.0
 routepolicy@1.0.13
+semantic:ui-icon@2.1.4
 server-render@0.3.0
 service-configuration@1.0.11
 sha@1.0.9
