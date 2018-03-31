@@ -12,5 +12,8 @@ Tracker.autorun(() => {
 });
 
 Meteor.startup(() => {
+  Meteor.call('greetUser', (error, result) => {
+    console.log('greetUser args', error, result);
+  });
   render(routes, document.getElementById('render-target'));
 });

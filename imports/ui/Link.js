@@ -1,4 +1,5 @@
 import React from 'react';
+import { Meteor } from 'meteor/meteor';
 import { Form, Segment, Button, Header, Grid, Message } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 import { Accounts } from 'meteor/accounts-base';
@@ -29,7 +30,10 @@ export default class Link extends React.Component{
   handleSubmit() {
     const url = this.state.url;
     if (url) {
-      Links.insert({url});
+      Links.insert({
+        url,
+        userId: Meteor.userId()
+      });
       console.log("Link added:", url);
       this.setState({url:''});
     }
