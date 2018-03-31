@@ -4,7 +4,7 @@ import 'semantic-ui-css/semantic.min.css';
 import { Tracker } from 'meteor/tracker';
 
 import {routes, onAuthChange } from '../imports/routes/routes.js';
-
+import '../imports/startup/simple-schema-configuration.js';
 
 Tracker.autorun(() => {
   const isAuthenticated = !!Meteor.userId();
