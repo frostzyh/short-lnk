@@ -1,8 +1,9 @@
 import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
-export const Links = new Mongo.Collection('links');
 
+
+export const Links = new Mongo.Collection('links');
 
 // The name 'links' in publish does not refer to the collection in mongoDB
 if (Meteor.isServer){
@@ -31,7 +32,7 @@ Meteor.methods({
     if(!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    
+
     new SimpleSchema({
       url: {
         type: String,
