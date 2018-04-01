@@ -18,8 +18,6 @@ export default class Link extends React.Component{
     }
   }
 
-
-
   render() {
     return (
       <Segment>
