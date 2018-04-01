@@ -24,9 +24,13 @@ export default class PrivateHeader extends React.Component{
     const url = this.state.url;
     if (url) {
       //Links.insert({ url, userId: Meteor.userId() });
-      Meteor.call('links.insert', url);
+      Meteor.call('links.insert', url, (err, res) => {
+        if (!err) {
+          this.setState({url:''});
+        }
+      });
       //console.log("Link added:", url);
-      this.setState({url:''});
+
     }
   }
 

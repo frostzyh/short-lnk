@@ -6,6 +6,7 @@ import { Links } from '../api/links';
 import LinksList from './LinksList';
 import PrivateHeader from './PrivateHeader';
 import AddLink from './AddLink';
+import LinksListFilters from './LinksListFilters';
 
 export default class Link extends React.Component{
   constructor(props){
@@ -22,6 +23,7 @@ export default class Link extends React.Component{
     return (
       <Segment>
         <PrivateHeader title="Your Links" />
+        <LinksListFilters />
         <LinksList />
         <AddLink />
       </Segment>
