@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { Segment } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import Clipboard from 'clipboard';
+import moment from 'moment';
 
 /*
 // Stateless Implementation
@@ -45,12 +46,26 @@ export default class LinksListItem extends React.Component {
     this.clipboard.destroy();
   }
 
+  renderStats() {
+    const visitMessage = this.props.visitedCount === 1 ? 'visit' : 'visits';
+    let visitedMessage = null;
+
+    // Don't rely only on the value of input. For example, the input value can be 0 and it's valid which means it should be true for the if statement, but the if statement treats 0 as false. so check the type of the input instead of the value.
+    if(typeof this.props.lastVisitedAt === 'number'){
+      visitedMessage = `(visited ${moment(this.props.lastVisitedAt).fromNow()} @ ${moment(this.props.lastVisitedAt).format('MMM Do, YYYY h:mma')})`;
+    }
+    return (
+      <p>{this.props.visitedCount} {visitMessage} {visitedMessage}</p>
+    );
+  }
+
   render() {
     return(
       <Segment>
         <h3>{this.props.url}</h3>
         <p>{this.props.shortUrl}</p>
         <p>{this.props.visible.toString()}</p>
+        {this.renderStats()}
         <button ref="copy" data-clipboard-text={this.props.shortUrl}>
           {this.state.justClicked ? 'Copied' : 'Copy'}
         </button>
@@ -71,4 +86,6 @@ LinksListItem.propTypes = {
   userId: PropTypes.string.isRequired,
   shortUrl: PropTypes.string.isRequired,
   visible: PropTypes.bool.isRequired,
+  visitedCount: PropTypes.number.isRequired,
+  lastVisitedAt: PropTypes.number,
 }

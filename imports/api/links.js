@@ -46,6 +46,8 @@ Meteor.methods({
       url,
       userId: this.userId,
       visible: true,
+      visitedCount: 0,
+      lastVisitedAt: null,
     });
   },
 
@@ -70,6 +72,28 @@ Meteor.methods({
     }, {
       $set: {visible}
     });
+  },
 
-  }
+  'links.trackVisit'(_id) {
+    // We do not have user authentication because the link may be used by other people other than the user and we still want to track the visit.
+    new SimpleSchema({
+      _id: {
+        type: String,
+        min: 1
+      },
+    }).validate({ _id });
+
+    Links.update({
+      _id
+    },{
+      $set: {
+        lastVisitedAt: new Date().getTime()
+      },
+      $inc: {
+        visitedCount: 1
+      }
+    });
+  },
+
+
 });
