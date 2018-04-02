@@ -29,10 +29,8 @@ export default class PrivateHeader extends React.Component{
     this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
-  handleChange(e, {name}) {
-    e.preventDefault();
-    if(name === 'url')
-      this.setState({url: e.target.value.trim()});
+  handleChange(e) {
+      ;
   }
 
   handleSubmit(e) {
@@ -76,7 +74,7 @@ export default class PrivateHeader extends React.Component{
           <h1>Add Link</h1>
           {error ? <p>{this.state.error}</p> : undefined}
           <form onSubmit={this.handleSubmit}>
-            <input type='text' value={url}  ref= "url" placeholder='url' onChange={this.handleChange} />
+            <input type='text' value={url} ref= "url" placeholder='url' onChange={(e) => this.setState({url: e.target.value.trim()})} />
             <button>Add Link</button>
           </form>
           <button onClick={this.handleCloseModal}>Cancel</button>
