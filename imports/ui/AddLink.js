@@ -1,16 +1,32 @@
 import React from 'react';
 import { Accounts } from 'meteor/accounts-base';
 import { Form, Segment, Button, Header, Grid, Message } from 'semantic-ui-react';
+import Modal from 'react-modal';
+
+const customStyles = {
+  content : {
+    top                   : '40%',
+    left                  : '40%',
+    right                 : '40%',
+    bottom                : '30%',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
+
 
 export default class PrivateHeader extends React.Component{
   constructor(props){
     super(props);
     this.state = {
       url: '',
+      modalIsOpen: false,
+      error: '',
     }
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
   handleChange(e, {name}) {
@@ -22,27 +38,49 @@ export default class PrivateHeader extends React.Component{
   handleSubmit(e) {
     e.preventDefault();
     const url = this.state.url;
-    if (url) {
-      //Links.insert({ url, userId: Meteor.userId() });
-      Meteor.call('links.insert', url, (err, res) => {
-        if (!err) {
-          this.setState({url:''});
-        }
-      });
-      //console.log("Link added:", url);
 
-    }
+    //Links.insert({ url, userId: Meteor.userId() });
+    Meteor.call('links.insert', url, (err, res) => {
+      if (!err) {
+        this.handleCloseModal();
+      } else{
+        this.setState({error: err.reason});
+      }
+    });
+    //console.log("Link added:", url);
+
+  }
+
+  handleCloseModal() {
+    this.setState({
+      modalIsOpen: false,
+      url: '',
+      error: ''
+    });
   }
 
   render(){
-    const { url } = this.state;
+    const { url, modalIsOpen, error } = this.state;
     return(
       <div>
-        <p>Add Link</p>
-        <Form size='large'>
-          <Form.Input name='url' value={url}  size= 'medium' value={this.state.url} placeholder='url' onChange={this.handleChange} />
-          <Button color='teal'  size='large' onClick = {this.handleSubmit}>Add Link</Button>
-        </Form>
+        <Button color='teal' onClick = {() => this.setState({modalIsOpen: true})}>+ Add Link</Button>
+        <Modal
+          isOpen={modalIsOpen}
+          contentLabel="Add Link"
+          onAfterOpen={ () => this.refs.url.focus()} //
+          onRequestClose={this.handleCloseModal} // close modal when click on outside of modal
+          style={customStyles}
+          ariaHideApp={false}
+
+          >
+          <h1>Add Link</h1>
+          {error ? <p>{this.state.error}</p> : undefined}
+          <form onSubmit={this.handleSubmit}>
+            <input type='text' value={url}  ref= "url" placeholder='url' onChange={this.handleChange} />
+            <button>Add Link</button>
+          </form>
+          <button onClick={this.handleCloseModal}>Cancel</button>
+        </Modal>
       </div>
     );
   }

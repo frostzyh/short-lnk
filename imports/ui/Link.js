@@ -1,8 +1,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Form, Segment, Button, Header, Grid, Message } from 'semantic-ui-react';
-import { Redirect } from 'react-router-dom';
-import { Links } from '../api/links';
+
 import LinksList from './LinksList';
 import PrivateHeader from './PrivateHeader';
 import AddLink from './AddLink';
@@ -24,8 +23,8 @@ export default class Link extends React.Component{
       <Segment>
         <PrivateHeader title="Your Links" />
         <LinksListFilters />
-        <LinksList />
         <AddLink />
+        <LinksList />
       </Segment>
     );
   }
