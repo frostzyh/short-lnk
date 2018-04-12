@@ -22,9 +22,11 @@ export default class Link extends React.Component{
     return (
       <Segment>
         <PrivateHeader title="Your Links" />
-        <LinksListFilters />
-        <AddLink />
-        <LinksList />
+        <div className="page-content">
+          <LinksListFilters />
+          <AddLink />
+          <LinksList />
+        </div>
       </Segment>
     );
   }

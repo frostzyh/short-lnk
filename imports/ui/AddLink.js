@@ -61,7 +61,7 @@ export default class PrivateHeader extends React.Component{
     const { url, modalIsOpen, error } = this.state;
     return(
       <div>
-        <Button color='teal' onClick = {() => this.setState({modalIsOpen: true})}>+ Add Link</Button>
+        <button className="button" onClick = {() => this.setState({modalIsOpen: true})}>+ Add Link</button>
         <Modal
           isOpen={modalIsOpen}
           contentLabel="Add Link"
@@ -69,15 +69,17 @@ export default class PrivateHeader extends React.Component{
           onRequestClose={this.handleCloseModal} // close modal when click on outside of modal
           style={customStyles}
           ariaHideApp={false}
+          className="boxed-view__box"
+          overlayClassName="boxed-view boxed-view--modal"
 
-          >
+        >
           <h1>Add Link</h1>
           {error ? <p>{this.state.error}</p> : undefined}
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit} className="boxed-view__form">
             <input type='text' value={url} ref= "url" placeholder='url' onChange={(e) => this.setState({url: e.target.value.trim()})} />
-            <button>Add Link</button>
+            <button type="submit" className="button">Add Link</button>
+            <button onClick={this.handleCloseModal} className="button button--secondary">Cancel</button>
           </form>
-          <button onClick={this.handleCloseModal}>Cancel</button>
         </Modal>
       </div>
     );

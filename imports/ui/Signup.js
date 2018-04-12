@@ -23,10 +23,10 @@ export default class Signup extends React.Component {
   }
 
 
-  handleChange(e, {name}) {
-      if (name === 'email')
+  handleChange(e) {
+      if (e.target.name === 'email')
         this.setState({email: e.target.value});
-      if (name === 'password')
+      if (e.target.name === 'password')
         this.setState({password: e.target.value});
   }
 
@@ -64,44 +64,59 @@ export default class Signup extends React.Component {
 
     const {email, password, error } = this.state;
     return (
-      <Segment>
-        <Grid textAlign='center' style={{
-            height: '100%'
-          }} verticalAlign='middle'>
 
-          <Grid.Column style={{
-              maxWidth: 450
-            }}>
-            <Header as='h2' color='teal' textAlign='center'>
-              {/* <Image src='/logo.png'/> {' '}Log-in to your account */}
-              Signup an account!
-            </Header>
+      <div className="boxed-view">
+        <div className="boxed-view__box">
+          <h1>Signup an account!</h1>
+          {error ? <p>{error}</p> : undefined}
 
-            <Form size='large'>
-              <Segment stacked>
-                <Form.Input type='email' name='email' value = {email} fluid icon='user' iconPosition='left' placeholder='E-mail address' onChange={this.handleChange} />
-                <Form.Input type='password' name='password' value = {password} fluid icon='lock' iconPosition='left' placeholder='Password' onChange={this.handleChange} />
+          <form onSubmit={this.handleClick} noValidate className="boxed-view__form">
+            <input type="email" name='email' value={email} placeholder='E-mail address' onChange={this.handleChange} />
+            <input type='password' name='password' value={password} placeholder='Password' onChange={this.handleChange} />
+            <button className="button">Confirm</button>
+          </form>
+          <Link to="/"> Already have an account? Login! </Link>
+        </div>
+      </div>
 
-                <Button color='teal' fluid size='large' onClick = {this.handleClick}>Confirm</Button>
-
-                {error ? (
-                  <Message negative>
-                    <Message.Header>Signup failed!</Message.Header>
-                    <p>{error}</p>
-                  </Message>
-                ) : undefined}
-
-              </Segment>
-            </Form>
-
-            <Message>
-              Already have an account?
-              <Link to="/"> Login!</Link>
-            </Message>
-
-          </Grid.Column>
-        </Grid>
-      </Segment>
+      // <Segment>
+      //   <Grid textAlign='center' style={{
+      //       height: '100%'
+      //   }} verticalAlign='middle'>
+      //
+      //     <Grid.Column style={{
+      //         maxWidth: 450
+      //     }}>
+      //       <Header as='h2' color='teal' textAlign='center'>
+      //         {/* <Image src='/logo.png'/> {' '}Log-in to your account */}
+      //         Signup an account!
+      //       </Header>
+      //
+      //       <Form size='large'>
+      //         <Segment stacked>
+      //           <Form.Input type='email' name='email' value = {email} fluid icon='user' iconPosition='left' placeholder='E-mail address' onChange={this.handleChange} />
+      //           <Form.Input type='password' name='password' value = {password} fluid icon='lock' iconPosition='left' placeholder='Password' onChange={this.handleChange} />
+      //
+      //           <Button color='teal' fluid size='large' onClick = {this.handleClick}>Confirm</Button>
+      //
+      //           {error ? (
+      //             <Message negative>
+      //               <Message.Header>Signup failed!</Message.Header>
+      //               <p>{error}</p>
+      //             </Message>
+      //           ) : undefined}
+      //
+      //         </Segment>
+      //       </Form>
+      //
+      //       <Message>
+      //         Already have an account?
+      //         <Link to="/"> Login!</Link>
+      //       </Message>
+      //
+      //     </Grid.Column>
+      //   </Grid>
+      // </Segment>
     );
   }
 }

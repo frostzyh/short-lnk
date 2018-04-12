@@ -55,29 +55,37 @@ export default class LinksListItem extends React.Component {
       visitedMessage = `(visited ${moment(this.props.lastVisitedAt).fromNow()} @ ${moment(this.props.lastVisitedAt).format('MMM Do, YYYY h:mma')})`;
     }
     return (
-      <p>{this.props.visitedCount} {visitMessage} {visitedMessage}</p>
+      <p className="item__message">{this.props.visitedCount} {visitMessage} {visitedMessage}</p>
     );
   }
 
   render() {
     return(
-      <Segment>
+      <div className="item">
         <h3>{this.props.url}</h3>
-        <p>{this.props.shortUrl}</p>
-        <p>{this.props.visible.toString()}</p>
+        <p className="item__message">{this.props.shortUrl}</p>
+        {/* <p>{this.props.visible.toString()}</p> */}
         {this.renderStats()}
-        <a href={this.props.shortUrl} target="_blank">
+        <a
+          className="button button--pill button--link"
+          href={this.props.shortUrl}
+          target="_blank"
+        >
           Visit
         </a>
-        <button ref="copy" data-clipboard-text={this.props.shortUrl}>
+        <button
+          className="button button--pill"
+          ref="copy"
+          data-clipboard-text={this.props.shortUrl}
+        >
           {this.state.justClicked ? 'Copied' : 'Copy'}
         </button>
-        <button onClick={() => {
+        <button className="button button--pill" onClick={() => {
           Meteor.call('links.setVisibility', this.props._id, !this.props.visible);
         }}>
           {this.props.visible ? 'Hide' : 'Show'}
         </button>
-      </Segment>
+      </div>
     );
   }
 }
